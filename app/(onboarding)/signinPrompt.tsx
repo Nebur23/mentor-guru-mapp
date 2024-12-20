@@ -4,23 +4,22 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import ImageViewer from '@/components/ui/ImageViewer';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-
-const PlaceholderImage = require('@/assets/images/learn.png');
-const App = () => {
+const PlaceholderImage = require('@/assets/images/start.png');
+const SigninPrompt = () => {
   return (
     <SafeAreaView className='bg-background h-full'>
     <View className="flex flex-col mt-10 gap-4 items-center justify-center" >
         <ImageViewer imgSource={PlaceholderImage} />
-          <Text className='text-white font-semibold text-3xl mt-4'>Welcome to Mentor Guru</Text>
-          <View>
-            <Text className='text-white font-normal text-md' >Master new skills anytime, anywhere!</Text>
-          <Link href="/course" className='mt-3 flex text-center' >
-            <MaterialIcons name="arrow-forward" size={28} color="#2196F3"  />
+          <View className='flex gap-2 flex-row'>
+          <Text  className='text-white font-semibold text-3xl mt-4' >Let's Get Started!</Text>
+          <Link href="/(auth)/sign-in" className='mt-5'>
+            <MaterialIcons name="arrow-forward" size={24} color="#3498db"  />
           </Link>
           </View>
+         
         </View>
       </SafeAreaView>
-  );
-};
+  )
+}
 
-export default App;
+export default SigninPrompt
