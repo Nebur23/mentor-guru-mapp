@@ -9,17 +9,21 @@ const PlaceholderImage = require('@/assets/images/learn.png');
 const App = () => {
   return (
     <SafeAreaView className='bg-background h-full'>
-    <View className="flex flex-col mt-10 gap-4 items-center justify-center" >
+      <View className='flex flex-col mt-10 gap-4 items-center justify-center'>
         <ImageViewer imgSource={PlaceholderImage} />
-          <Text className='text-white font-semibold text-3xl mt-4'>Welcome to Mentor Guru</Text>
-          <View>
-            <Text className='text-white font-normal text-md' >Master new skills anytime, anywhere!</Text>
-          <Link href="/course" className='mt-3 flex text-center' >
-            <MaterialIcons name="arrow-forward" size={28} color="#2196F3"  />
+        <Text className='text-black font-semibold text-3xl mt-4'>
+          Welcome to Mentor Guru
+        </Text>
+        <View>
+          <Text className='text-black font-normal text-md'>
+            Master new skills anytime, anywhere!
+          </Text>
+          <Link href='/course' className='mt-3 flex text-center'>
+            <MaterialIcons name='arrow-forward' size={28} color='#FF9C01' />
           </Link>
-          </View>
         </View>
-      </SafeAreaView>
+      </View>
+    </SafeAreaView>
   );
 };
 
