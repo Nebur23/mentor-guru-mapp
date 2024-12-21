@@ -1,3 +1,6 @@
 import icons from "./icons";
+import images from "./images";
 
-export { icons };
+const SERVER_URI = process.env.SERVER_URL || "http://192.168.242.91:4000";
+
+export { icons, SERVER_URI, images };

@@ -10,7 +10,7 @@ const CustomButtom = ({
 }: {
   title: string;
   handlePress?: () => void;
-  containerStyle: string;
+  containerStyle?: string;
   textStyle?: string;
   isLoading?: boolean;
 }) => {

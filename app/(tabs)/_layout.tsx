@@ -25,6 +25,16 @@ const TabLayout = () => {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name='Resources'
+        options={{
+          title: "Resources",
+          tabBarIcon: ({ color }) => (
+            <TabIcon icon={icons.file} color={color} />
+          ),
+        }}
+      />
       <Tabs.Screen
         name='profile'
         options={{
