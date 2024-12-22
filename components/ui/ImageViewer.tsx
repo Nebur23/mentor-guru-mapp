@@ -6,8 +6,8 @@ type Props = {
   selectedImage?: String;
 };
 
-export default function ImageViewer({ imgSource,selectedImage }: Props) {
-  const imageSource = selectedImage?{uri:selectedImage}:imgSource
+export default function ImageViewer({ imgSource, selectedImage }: Props) {
+  const imageSource = selectedImage ? { uri: selectedImage } : imgSource;
   return <Image source={imageSource} style={styles.image} />;
 }
 
