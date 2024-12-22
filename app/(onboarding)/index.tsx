@@ -1,11 +1,10 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import ImageViewer from '@/components/ui/ImageViewer';
+import { View, Text } from "react-native";
+import React from "react";
+import { Link } from "expo-router";
+import ImageViewer from "@/components/ui/ImageViewer";
 import { MaterialIcons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
-
-const PlaceholderImage = require('@/assets/images/learn.png');
+import { SafeAreaView } from "react-native-safe-area-context";
+const PlaceholderImage = require('@/assets/images/progress.png');
 const App = () => {
   return (
     <SafeAreaView className='bg-background h-full'>

@@ -24,5 +24,4 @@ const Course = () => {
     </SafeAreaView>
   );
 }
-
-export default Course
+export default Course;
