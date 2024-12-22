@@ -8,7 +8,7 @@ const Paper = () => {
   const subjects = advancedSubjects;
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View className='p-3 gap-3'>
           {subjects.map((subject, id) => {
             return (
