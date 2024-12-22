@@ -8,16 +8,16 @@ const PlaceholderImage = require('@/assets/images/start.png');
 const SigninPrompt = () => {
   return (
     <SafeAreaView className='bg-background h-full'>
-    <View className="flex flex-col mt-10 gap-4 items-center justify-center" >
-        <ImageViewer imgSource={PlaceholderImage} />
-          <View className='flex gap-2 flex-row'>
-          <Text  className='text-white font-semibold text-3xl mt-4' >Let's Get Started!</Text>
-          <Link href="/(auth)/sign-in" className='mt-5'>
-            <MaterialIcons name="arrow-forward" size={24} color="#3498db"  />
-          </Link>
-          </View>
-         
+  <View className="flex flex-col mt-10 gap-4 items-center justify-center" >
+      <ImageViewer imgSource={PlaceholderImage} />
+        <View className='flex gap-2 flex-row'>
+        <Text  className='text-primary font-semibold text-3xl mt-4' >Let's Get Started!</Text>
+        <Link href="/(auth)/sign-in" className='mt-5'>
+          <MaterialIcons name="arrow-forward" size={24} color="#3498db"  />
+        </Link>
         </View>
+       
+      </View>
       </SafeAreaView>
   )
 }

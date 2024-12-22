@@ -10,8 +10,8 @@ const Ai = () => {
     <SafeAreaView className='bg-background h-full'>
     <View className="flex flex-col mt-10 gap-4 items-center justify-center" >
         <ImageViewer imgSource={PlaceholderImage} />
-          <Text className='text-white font-semibold text-3xl mt-4' >AI-Powered Learning</Text>
-          <Text className='text-white font-normal text-md text-justify'>Experience personalized learning powered by AI recommendations and an interactive chatbot.</Text>
+          <Text className='text-primary font-semibold text-3xl mt-4' >AI-Powered Learning</Text>
+          <Text className='text-text font-normal text-md text-justify'>Experience personalized learning powered by AI recommendations and an interactive chatbot.</Text>
           <Link href="/signinPrompt" >
             <MaterialIcons name="arrow-forward" size={28} color="#2196F3" />
           </Link>

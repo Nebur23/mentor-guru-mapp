@@ -8,15 +8,15 @@ const PlaceholderImage = require('@/assets/images/progress.png');
 const Progress = () => {
   return (
     <SafeAreaView className='bg-background h-full'>
-  <View className="flex flex-col mt-10 gap-4 items-center justify-center" >
-      <ImageViewer imgSource={PlaceholderImage} />
-        <Text className='text-white font-semibold text-3xl mt-4'>Stay Organized</Text>
-        <Text className='text-white font-normal text-md text-justify' >Track your progress and manage assignments easily.</Text>
-        <Link href="/ai" >
-          <MaterialIcons name="arrow-forward" size={28} color="#2196F3" />
-        </Link>
-      </View>
-    </SafeAreaView>
+    <View className="flex flex-col mt-10 gap-4 items-center justify-center" >
+        <ImageViewer imgSource={PlaceholderImage} />
+          <Text className='text-primary font-semibold text-3xl mt-4'>Stay Organized</Text>
+          <Text className='text-text font-normal text-md text-justify' >Track your progress and manage assignments easily.</Text>
+          <Link href="/ai" >
+            <MaterialIcons name="arrow-forward" size={28} color="#2196F3" />
+          </Link>
+        </View>
+      </SafeAreaView>
   )
 }
 
