@@ -5,7 +5,7 @@ import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 
 import FormField from "@/components/ui/form-field";
 import CustomButtom from "@/components/ui/custom-btn";
-//import { signIn } from "@/lib/appwrite";
+import { signIn } from "@/lib/appwrite";
 
 const SignIn = () => {
   //const { setUser, setIsLogged } = useGlobalContext();
@@ -15,31 +15,29 @@ const SignIn = () => {
     password: "",
   });
 
-  // const submit = async () => {
-  //   if (form.email === "" || form.password === "") {
-  //     Alert.alert("Error", "Please fill in all fields");
-  //   }
-
-  //   setSubmitting(true);
-
-  //   try {
-  //     await signIn(form.email, form.password);
-  //     //const result = await getCurrentUser();
-  //     //setUser(result);
-  //     //setIsLogged(true);
-
-  //     Alert.alert("Success", "User signed in successfully");
-  //     router.replace("/home");
-  //   } catch (error: any) {
-  //     Alert.alert("Sign-in Error", error.message);
-  //   } finally {
-  //     setSubmitting(false);
-  //   }
-  // };
-
   const submit = async () => {
-    router.replace("/home");
+    if (form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
+    }
+
+    setSubmitting(true);
+
+    try {
+      await signIn(form.email, form.password);
+      //const result = await getCurrentUser();
+      //setUser(result);
+      //setIsLogged(true);
+
+      Alert.alert("Success", "User signed in successfully");
+      router.replace("/home");
+    } catch (error: any) {
+      Alert.alert("Sign-in Error", error.message);
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+ 
   return (
     <SafeAreaView className='h-full'>
       <ScrollView>
