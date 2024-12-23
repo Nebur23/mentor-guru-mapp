@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity,Image } from "react-native";
 import React, { useState } from "react";
-import { Link, Redirect } from "expo-router";
+import { Link, Redirect,router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useGlobalContext } from "@/context/GlobalProvider";
 
@@ -48,7 +48,7 @@ const App = () => {
   };
   const handleFinish = () => {
    
-    return <Redirect href="/home" />;
+    router.replace("/(auth)/sign-in");
   };
   return (
     <SafeAreaView className="bg-white h-full">
@@ -58,10 +58,10 @@ const App = () => {
       
      
       <View className="text-center">
-        <Text className="text-black font-bold text-[min(24px, 5vw)]">
+        <Text className="text-black font-bold text-[min(50px, 5vw)]">
           {slides[currentSlide].title}
         </Text>
-        <Text className="text-gray-600 text-lg mt-2">
+        <Text className="text-gray-600 text-[min(30px, 5vw)] mt-2">
           {slides[currentSlide].subtitle}
         </Text>
       </View>

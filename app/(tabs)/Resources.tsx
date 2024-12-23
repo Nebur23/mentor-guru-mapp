@@ -7,7 +7,7 @@ import CardChoice from "@/components/ui/card-choice";
 
 const Resources = () => {
   return (
-    <SafeAreaView className='justify-center items-center h-full'>
+    <SafeAreaView className='justify-center items-center h-full bg-white'>
       <ScrollView>
         <Text>Resources</Text>
 

@@ -6,7 +6,7 @@ import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 import FormField from "@/components/ui/form-field";
 import CustomButtom from "@/components/ui/custom-btn";
 import { signIn } from "@/lib/appwrite";
-
+const logo = require("../../assets/images/splashScreen.jpeg");
 const SignIn = () => {
   //const { setUser, setIsLogged } = useGlobalContext();
   const [isSubmitting, setSubmitting] = useState(false);
@@ -42,12 +42,12 @@ const SignIn = () => {
     <SafeAreaView className='h-full'>
       <ScrollView>
         <View
-          className='w-full flex justify-center h-full px-4 my-6'
+          className='w-full flex justify-center h-full px-4 my-6 bg-white'
           style={{
             minHeight: Dimensions.get("window").height - 100,
           }}
         >
-          <Text>Logo</Text>
+          <Image source={logo} className="w-12 h-12"/>
 
           <Text className='text-2xl font-semibold text-black mt-10 font-psemibold'>
             Log in to Mentor Guru
