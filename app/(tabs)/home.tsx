@@ -15,7 +15,7 @@ const HomeScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false} className='flex-1'>
         <Text className='text-gray-800 text-base'>Your Videos and Content</Text>
 
-        {loading ? <SkeletonLoader /> : <Text>Content</Text>}
+        {loading ? <Text>Helo</Text> : <Text>Content</Text>}
       </ScrollView>
     </View>
   );

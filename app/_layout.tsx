@@ -1,22 +1,17 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import React, { useEffect } from "react";
+import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
-import "react-native-reanimated";
 import "../global.css";
-
+import { GlobalProvider } from "@/context/GlobalProvider";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+export default function RootLayout(): JSX.Element | null {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -42,15 +37,19 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DefaultTheme : DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name='(onboarding)' />
-        <Stack.Screen name='(tabs)' />
-        <Stack.Screen name='+not-found' />
-        <Stack.Screen name='(resources)' />
-        <Stack.Screen name='(auth)' />
-      </Stack>
-      <StatusBar style='auto' />
-    </ThemeProvider>
+    <GlobalProvider>
+      <ThemeProvider
+        value={colorScheme === "dark" ? DefaultTheme : DefaultTheme}
+      >
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name='(onboarding)' />
+          <Stack.Screen name='(tabs)' />
+          <Stack.Screen name='+not-found' />
+          <Stack.Screen name='(resources)' />
+          <Stack.Screen name='(auth)' />
+        </Stack>
+        <StatusBar style='auto' />
+      </ThemeProvider>
+    </GlobalProvider>
   );
 }

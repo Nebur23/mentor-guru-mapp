@@ -1,27 +1,90 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import ImageViewer from '@/components/ui/ImageViewer';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { View, Text, TouchableOpacity, Image } from "react-native";
+import React, { useState } from "react";
+import { Link, Redirect, router } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
-const PlaceholderImage = require('@/assets/images/learn.png');
+const slides = [
+  {
+    id: 1,
+    title: "Welcome to Mentor Guru",
+    subtitle: "Master new skills anytime, anywhere!",
+    image: require("@/assets/images/learn.png"),
+  },
+  {
+    id: 2,
+    title: "Learn Anytime",
+    subtitle: "Access courses on the go with our easy-to-use platform.",
+    image: require("@/assets/images/course.png"),
+  },
+  {
+    id: 3,
+    title: " Stay Organized",
+    subtitle: "Track your progress and manage assignments easily.",
+    image: require("@/assets/images/progress.png"),
+  },
+  {
+    id: 4,
+    title: " AI-Powered Learning",
+    subtitle:
+      "Experience personalized learning powered by AI recommendations and an interactive chatbot.",
+    image: require("@/assets/images/ai.png"),
+  },
+  {
+    id: 5,
+    title: "Let's Get Started!",
+    subtitle: "",
+    image: require("@/assets/images/start.png"),
+  },
+];
 const App = () => {
+  const { isLoading, isLoggedIn } = useGlobalContext();
+  if (!isLoading && !isLoggedIn) return <Redirect href='/home' />;
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const handleNext = () => {
+    if (currentSlide < slides.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };
+  const handleFinish = () => {
+    return router.push("/(auth)/sign-in");
+  };
   return (
-    <SafeAreaView className='bg-background h-full'>
-      <View className='flex flex-col mt-10 gap-4 items-center justify-center'>
-        <ImageViewer imgSource={PlaceholderImage} />
-        <Text className='text-black font-semibold text-3xl mt-4'>
-          Welcome to Mentor Guru
-        </Text>
-        <View>
-          <Text className='text-black font-normal text-md'>
-            Master new skills anytime, anywhere!
+    <SafeAreaView className='bg-white h-full'>
+      <View className='flex flex-col items-center justify-center h-full gap-6'>
+        <Image source={slides[currentSlide].image} className='w-48 h-48' />
+
+        <View className='text-center px-1'>
+          <Text className='text-black text-3xl font-pbold text-center text-[min(24px, 5vw)]'>
+            {slides[currentSlide].title}
           </Text>
-          <Link href='/course' className='mt-3 flex text-center'>
-            <MaterialIcons name='arrow-forward' size={28} color='#FF9C01' />
-          </Link>
+          <Text className='text-gray-600 text-md text-center mt-2'>
+            {slides[currentSlide].subtitle}
+          </Text>
         </View>
+
+        <View className='flex flex-row gap-2 mt-6'>
+          {slides.map((_, index) => (
+            <View
+              key={index}
+              className={`w-3 h-3 rounded-full ${
+                index === currentSlide ? "bg-blue" : "bg-gray-300"
+              }`}
+            />
+          ))}
+        </View>
+
+        <TouchableOpacity
+          onPress={
+            currentSlide === slides.length - 1 ? handleFinish : handleNext
+          }
+          className='bg-blue px-6 py-3 rounded-lg mt-6'
+        >
+          <Text className='text-white text-lg font-semibold'>
+            {currentSlide === slides.length - 1 ? "Finish" : "Next"}
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

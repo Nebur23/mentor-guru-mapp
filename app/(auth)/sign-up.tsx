@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { Link, router } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
-
-//import { images } from "../../constants";
 import FormField from "@/components/ui/form-field";
 import CustomButtom from "@/components/ui/custom-btn";
-//import { createUser } from "@/lib/appwrite";
+import { createUser } from "../../lib/appwrite";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const SignUp = () => {
-  //const { setUser, setIsLogged } = useGlobalContext();
+  const { setUser, setIsLoggedIn } = useGlobalContext();
 
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -18,22 +17,22 @@ const SignUp = () => {
     password: "",
   });
 
-  // const submit = async () => {
-  //   if (form.username === "" || form.email === "" || form.password === "") {
-  //     Alert.alert("Error", "Please fill in all fields");
-  //   }
-  //   setSubmitting(true);
-  //   try {
-  //     const result = await createUser(form.email, form.password, form.username);
-  //     //setUser(result);
-  //     //setIsLogged(true);
-  //     router.replace("/home");
-  //   } catch (error: any) {
-  //     Alert.alert("Sign-up Error", error.message);
-  //   } finally {
-  //     setSubmitting(false);
-  //   }
-  // };
+  const submit = async () => {
+    if (form.username === "" || form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
+    }
+    setSubmitting(true);
+    try {
+      const result = await createUser(form.email, form.password, form.username);
+      setUser(result);
+      setIsLoggedIn(true);
+      router.replace("/(tabs)/home");
+    } catch (error: any) {
+      Alert.alert("Sign-up Error", error.message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <SafeAreaView className='h-full'>
@@ -47,7 +46,7 @@ const SignUp = () => {
           <Text>Logo</Text>
 
           <Text className='text-2xl font-semibold text-black mt-10 font-psemibold'>
-            Sign Up to Aora
+            Sign Up to Mentor Guru
           </Text>
 
           <FormField
@@ -77,7 +76,7 @@ const SignUp = () => {
 
           <CustomButtom
             title='Sign Up'
-            handlePress={() => "submit"}
+            handlePress={submit}
             containerStyle='mt-7'
             isLoading={isSubmitting}
           />
