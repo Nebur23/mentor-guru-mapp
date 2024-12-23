@@ -1,11 +1,5 @@
-import {
-  Account,
-  Client,
-  Avatars,
-  Databases,
-  Query,
-  ID,
-} from "react-native-appwrite";
+import { Account, Client, Avatars, Databases, ID, QueryTypesList } from "react-native-appwrite";
+import { Query } from "react-native-appwrite";
 
 export const appwriteConfig = {
   endpoint: "https://cloud.appwrite.io/v1",
@@ -15,6 +9,7 @@ export const appwriteConfig = {
   databaseId: "6767aa2c002ee93f4445",
   userCollectionId: "6767aa6c003948e7d0a0",
   storageId: "6767ac7e001855d5e4b2",
+  videoCollectionId: "",
 };
 const client = new Client();
 client
@@ -25,26 +20,30 @@ client
 const account = new Account(client);
 const avatars = new Avatars(client);
 const databases = new Databases(client);
-
 export const createUser = async (
   email: string,
   password: string,
   username: string
 ) => {
   try {
+    // Create User Account with unique userId
     const response = await account.create(
       ID.unique(),
       email,
       password,
       username
     );
-    if (!response) throw Error;
+
+    if (!response) throw new Error("User creation failed");
+
+    // Generate Avatar URL
     const avatarUrl = avatars.getInitials(username);
-    await signIn(email, password);
+
+    // Save User Data in Database
     const newUser = await databases.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
-      ID.unique(),
+      ID.unique(), // Generate a unique ID for the document
       {
         accountId: response.$id,
         email,
@@ -52,9 +51,11 @@ export const createUser = async (
         avatar: avatarUrl,
       }
     );
+
     return newUser;
   } catch (error: any) {
-    throw new Error(error.message);
+    console.error("Error in createUser:", error);
+    throw new Error(error.message || "An error occurred during user creation");
   }
 };
 export const signIn = async (email: string, password: string) => {
@@ -64,7 +65,6 @@ export const signIn = async (email: string, password: string) => {
     throw new Error(error.message);
   }
 };
-
 export const getCurrentUser = async () => {
   try {
     const currentAccount = await account.get();
@@ -80,3 +80,42 @@ export const getCurrentUser = async () => {
     console.log(error.message);
   }
 };
+export const logout = async () => {
+  try {
+    await account.deleteSession("current");
+
+    console.log("Successfully logged out");
+    return true;
+  } catch (error: any) {
+    console.log(error.message);
+    return false;
+  }
+};
+
+export async function getAllPosts() {
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.videoCollectionId
+    );
+
+    return posts.documents;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
+
+// Get video posts created by user
+export async function getUserPosts(userId: string | number | boolean | QueryTypesList) {
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.videoCollectionId,
+      [Query.equal("creator", userId)]
+    );
+
+    return posts.documents;
+  } catch (error:any) {
+    throw new Error(error);
+  }
+}

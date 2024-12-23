@@ -48,18 +48,18 @@ const App = () => {
     }
   };
   const handleFinish = () => {
-    return router.push("/(auth)/sign-in");
+    router.replace("/(auth)/sign-in");
   };
   return (
     <SafeAreaView className='bg-white h-full'>
       <View className='flex flex-col items-center justify-center h-full gap-6'>
         <Image source={slides[currentSlide].image} className='w-48 h-48' />
 
-        <View className='text-center px-1'>
-          <Text className='text-black text-3xl font-pbold text-center text-[min(24px, 5vw)]'>
+        <View className='text-center'>
+          <Text className='text-black font-bold text-[min(50px, 5vw)]'>
             {slides[currentSlide].title}
           </Text>
-          <Text className='text-gray-600 text-md text-center mt-2'>
+          <Text className='text-gray-600 text-[min(30px, 5vw)] mt-2'>
             {slides[currentSlide].subtitle}
           </Text>
         </View>
