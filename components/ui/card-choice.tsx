@@ -22,7 +22,7 @@ const CardChoice = ({ title, url }: { title: string; url: string }) => {
         className='w-72 h-64 rounded-md'
         resizeMode='contain'
       />
-      <CustomButtom title='Get Started' handlePress={submit} />
+      <CustomButtom title='Get Started ' handlePress={submit} />
     </View>
   );
 };

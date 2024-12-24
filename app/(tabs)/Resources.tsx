@@ -7,8 +7,8 @@ import CardChoice from "@/components/ui/card-choice";
 
 const Resources = () => {
   return (
-    <SafeAreaView className='justify-center items-center h-full bg-white'>
-      <ScrollView>
+    <SafeAreaView className='justify-center items-center h-full'>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text>Resources</Text>
 
         <CardChoice title='Past papers' url='papers' />

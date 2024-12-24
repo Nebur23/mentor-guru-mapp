@@ -6,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const PastPer = () => {
   return (
     <SafeAreaView className='justify-center items-center h-full'>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Text>Past papers</Text>
 
         <Card title='A level' level='advanced' />
