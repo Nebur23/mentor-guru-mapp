@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ResizeMode, Video } from "expo-av";
-import { View, Text, TouchableOpacity, Image } from "react-native";
-
+import { ResizeMode } from "expo-av";
+import { View, Text, TouchableOpacity, Image, Dimensions } from "react-native";
+import { useVideoPlayer, VideoView } from "expo-video";
 import { icons } from "../constants";
 
 const VideoCard = ({
@@ -18,12 +18,16 @@ const VideoCard = ({
   video?: string;
 }) => {
   const [play, setPlay] = useState(false);
+  const player = useVideoPlayer(video as string, player => {
+    player.loop = true;
+    player.play();
+  });
 
   return (
-    <View className='flex flex-col items-center px-4 mb-14'>
+    <View className='flex flex-col items-center px-4 mb-14 '>
       <View className='flex flex-row gap-3 items-start'>
         <View className='flex justify-center items-center flex-row flex-1'>
-          <View className='w-[46px] h-[46px] rounded-lg border border-secondary flex justify-center items-center p-0.5'>
+          <View className='w-[46px] h-[46px] rounded-lg border border-black flex justify-center items-center p-0.5'>
             <Image
               source={{ uri: avatar }}
               className='w-full h-full rounded-lg'
@@ -31,18 +35,18 @@ const VideoCard = ({
             />
           </View>
 
-          <View className='flex justify-center flex-1 ml-3 gap-y-1'>
+          <View className='flextext-blue justify-center flex-1 ml-3 gap-y-1'>
             <Text
-              className='font-psemibold text-sm text-white'
+              className='font-psemibold text-sm text-black'
               numberOfLines={1}
             >
               {title}
             </Text>
             <Text
-              className='text-xs text-gray-100 font-pregular'
+              className='text-xs text-gray-600 font-pregular'
               numberOfLines={1}
             >
-              {creator}
+              by {creator}
             </Text>
           </View>
         </View>
@@ -53,18 +57,17 @@ const VideoCard = ({
       </View>
 
       {play ? (
-        <Video
-          source={{ uri: video as string }}
-          className='w-full h-60 rounded-xl mt-3'
-          resizeMode={ResizeMode.CONTAIN}
-          useNativeControls
-          shouldPlay
-          onPlaybackStatusUpdate={(status: any) => {
-            if (status.didJustFinish) {
-              setPlay(false);
-            }
-          }}
-        />
+        <View className="border border-gray-100 my-2">
+          <VideoView
+            style={{
+              width: Dimensions.get("window").width,
+              height: Dimensions.get("window").width * 0.5625,
+            }}
+            player={player}
+            allowsFullscreen
+            allowsPictureInPicture
+          />
+        </View>
       ) : (
         <TouchableOpacity
           activeOpacity={0.7}

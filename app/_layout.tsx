@@ -1,5 +1,9 @@
 import React, { useEffect } from "react";
-import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -38,18 +42,14 @@ export default function RootLayout(): JSX.Element | null {
 
   return (
     <GlobalProvider>
-      <ThemeProvider
-        value={colorScheme === "dark" ? DefaultTheme : DefaultTheme}
-      >
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name='(onboarding)' />
-          <Stack.Screen name='(tabs)' />
-          <Stack.Screen name='+not-found' />
-          <Stack.Screen name='(resources)' />
-          <Stack.Screen name='(auth)' />
-        </Stack>
-        <StatusBar style='auto' />
-      </ThemeProvider>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='(onboarding)' />
+        <Stack.Screen name='(tabs)' />
+        <Stack.Screen name='+not-found' />
+        <Stack.Screen name='(resources)' />
+        <Stack.Screen name='(auth)' />
+      </Stack>
+      <StatusBar style='auto' />
     </GlobalProvider>
   );
 }

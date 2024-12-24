@@ -1,15 +1,22 @@
-import { Account, Client, Avatars, Databases, ID, QueryTypesList } from "react-native-appwrite";
+import {
+  Account,
+  Client,
+  Avatars,
+  Databases,
+  ID,
+  QueryTypesList,
+} from "react-native-appwrite";
 import { Query } from "react-native-appwrite";
 
 export const appwriteConfig = {
   endpoint: "https://cloud.appwrite.io/v1",
-  platform: "com.jpteks.mentor-guru",
-  projectId: "6767a5fd00043b8c4c55",
+  platform: "com.jpteks.mentorguru",
+  projectId: "676a61fa0015f452c3ad",
 
-  databaseId: "6767aa2c002ee93f4445",
-  userCollectionId: "6767aa6c003948e7d0a0",
-  storageId: "6767ac7e001855d5e4b2",
-  videoCollectionId: "",
+  databaseId: "676a62fa000a1b30fc79",
+  userCollectionId: "676a63960031885c048f",
+  videoCollectionId: "676a63d7000be9e393ed",
+  storageId: "676a6a0800090f2d87d1",
 };
 const client = new Client();
 client
@@ -106,7 +113,9 @@ export async function getAllPosts() {
 }
 
 // Get video posts created by user
-export async function getUserPosts(userId: string | number | boolean | QueryTypesList) {
+export async function getUserPosts(
+  userId: string | number | boolean | QueryTypesList
+) {
   try {
     const posts = await databases.listDocuments(
       appwriteConfig.databaseId,
@@ -115,7 +124,7 @@ export async function getUserPosts(userId: string | number | boolean | QueryType
     );
 
     return posts.documents;
-  } catch (error:any) {
+  } catch (error: any) {
     throw new Error(error);
   }
 }

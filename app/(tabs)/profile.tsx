@@ -67,7 +67,7 @@ const ProfileScreen = () => {
             source={{ uri: user?.avatar }}
             className='w-12 h-12 rounded-full bg-white'
           />
-          <Text className='text-xl font-semibold'>{user?.name}</Text>
+          <Text className='text-xl font-semibold text-white ml-2'>{user?.username}</Text>
         </View>
 
         <TouchableOpacity onPress={Logout}>

@@ -5,7 +5,15 @@ import { Ionicons } from "@expo/vector-icons";
 import SearchInput from "./ui/search-input";
 
 const { height } = Dimensions.get("window"); // Get the screen height
-const WelcomeHeader = () => {
+const WelcomeHeader = ({
+  user,
+}: {
+  user: {
+    username: string;
+    email: string;
+    avatar: string;
+  };
+}) => {
   const [notifications, setNotifications] = useState(2);
   return (
     <SafeAreaView
@@ -14,7 +22,9 @@ const WelcomeHeader = () => {
     >
       <View className='flex flex-row justify-between items-center'>
         <View className='flex mt-3 '>
-          <Text className='text-white text-3xl font-pmedium'>Hi Ruben,</Text>
+          <Text className='text-white text-3xl font-pmedium'>
+            Hi {user.username},
+          </Text>
           <Text className='font-pregular text-gray-500'>
             Let's start Learning
           </Text>

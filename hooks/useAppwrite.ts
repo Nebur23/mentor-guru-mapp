@@ -9,7 +9,10 @@ const useAppwrite = (fn: () => any) => {
       password?: string;
       title?: string;
       thumbnail?: string;
-      creator?: string;
+      creator?: {
+        username: string;
+        avatar: string;
+      };
       avatar?: string;
       _id: string;
       [key: string]: any;

@@ -39,7 +39,7 @@ const slides = [
 ];
 const App = () => {
   const { isLoading, isLoggedIn } = useGlobalContext();
-  if (!isLoading && !isLoggedIn) return <Redirect href='/home' />;
+  if (!isLoading && isLoggedIn) return <Redirect href='/home' />;
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const handleNext = () => {
