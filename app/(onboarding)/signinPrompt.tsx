@@ -1,10 +1,10 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import ImageViewer from '@/components/ui/ImageViewer';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
-const PlaceholderImage = require('@/assets/images/start.png');
+import { View, Text } from "react-native";
+import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import ImageViewer from "@/components/ui/ImageViewer";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Link } from "expo-router";
+const PlaceholderImage = require("@/assets/images/start.png");
 const SigninPrompt = () => {
   return (
     <SafeAreaView className='bg-background h-full'>
@@ -21,6 +21,6 @@ const SigninPrompt = () => {
       </View>
     </SafeAreaView>
   );
-}
+};
 
-export default SigninPrompt
+export default SigninPrompt;

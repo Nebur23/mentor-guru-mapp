@@ -5,10 +5,11 @@ import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 
 import FormField from "@/components/ui/form-field";
 import CustomButtom from "@/components/ui/custom-btn";
-import { signIn } from "@/lib/appwrite";
+import { getCurrentUser, signIn } from "@/lib/appwrite";
+import { useGlobalContext } from "@/context/GlobalProvider";
 const logo = require("../../assets/images/splashScreen.jpeg");
 const SignIn = () => {
-  //const { setUser, setIsLogged } = useGlobalContext();
+  const { setUser, setIsLoggedIn } = useGlobalContext();
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -24,9 +25,9 @@ const SignIn = () => {
 
     try {
       await signIn(form.email, form.password);
-      //const result = await getCurrentUser();
-      //setUser(result);
-      //setIsLogged(true);
+      const result = await getCurrentUser();
+      setUser(result);
+      setIsLoggedIn(true);
 
       Alert.alert("Success", "User signed in successfully");
       router.replace("/home");
@@ -37,17 +38,16 @@ const SignIn = () => {
     }
   };
 
- 
   return (
     <SafeAreaView className='h-full'>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           className='w-full flex justify-center h-full px-4 my-6 bg-white'
           style={{
             minHeight: Dimensions.get("window").height - 100,
           }}
         >
-          <Image source={logo} className="w-12 h-12"/>
+          <Image source={logo} className='w-12 h-12' />
 
           <Text className='text-2xl font-semibold text-black mt-10 font-psemibold'>
             Log in to Mentor Guru
@@ -95,10 +95,3 @@ const SignIn = () => {
 };
 
 export default SignIn;
-function useGlobalContext(): { setUser: any; setIsLogged: any } {
-  throw new Error("Function not implemented.");
-}
-
-function getCurrentUser() {
-  throw new Error("Function not implemented.");
-}

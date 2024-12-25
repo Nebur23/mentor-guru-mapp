@@ -8,7 +8,7 @@ const TabLayout = () => {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#FF9C01",
+        tabBarActiveTintColor: "#1A8FE3",
         tabBarStyle: {
           backgroundColor: "#fff",
           borderTopWidth: 0,

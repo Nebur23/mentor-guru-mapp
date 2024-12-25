@@ -12,6 +12,11 @@ module.exports = {
           100: "#FF9001",
           200: "#FF8E01",
         },
+        tertiary: {
+          DEFAULT: "#E6C229",
+          100: "#E6C229",
+          200: "#E6C229",
+        },
         black: {
           DEFAULT: "#000",
           100: "#1E1E2D",
@@ -19,6 +24,9 @@ module.exports = {
         },
         gray: {
           100: "#CDCDE0",
+        },
+        blue: {
+          DEFAULT: "#1A8FE3",
         },
       },
       fontFamily: {

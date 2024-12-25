@@ -1,6 +1,6 @@
-import { View, Text, TouchableOpacity,Image } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
-import { Link, Redirect,router } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useGlobalContext } from "@/context/GlobalProvider";
 
@@ -26,7 +26,8 @@ const slides = [
   {
     id: 4,
     title: " AI-Powered Learning",
-    subtitle: "Experience personalized learning powered by AI recommendations and an interactive chatbot.",
+    subtitle:
+      "Experience personalized learning powered by AI recommendations and an interactive chatbot.",
     image: require("@/assets/images/ai.png"),
   },
   {
@@ -37,8 +38,8 @@ const slides = [
   },
 ];
 const App = () => {
-  const {isLoading,isLoggedIn}=useGlobalContext()
-  if(!isLoading && isLoggedIn) return <Redirect href="/home"/>
+  const { isLoading, isLoggedIn } = useGlobalContext();
+  if (!isLoading && isLoggedIn) return <Redirect href='/home' />;
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const handleNext = () => {
@@ -47,50 +48,45 @@ const App = () => {
     }
   };
   const handleFinish = () => {
-   
     router.replace("/(auth)/sign-in");
   };
   return (
-    <SafeAreaView className="bg-white h-full">
-    <View className="flex flex-col items-center justify-center h-full gap-6">
-     
-      <Image source={slides[currentSlide].image} className="w-48 h-48" />
-      
-     
-      <View className="text-center">
-        <Text className="text-black font-bold text-[min(50px, 5vw)]">
-          {slides[currentSlide].title}
-        </Text>
-        <Text className="text-gray-600 text-[min(30px, 5vw)] mt-2">
-          {slides[currentSlide].subtitle}
-        </Text>
+    <SafeAreaView className='bg-white h-full'>
+      <View className='flex flex-col items-center justify-center h-full gap-6'>
+        <Image source={slides[currentSlide].image} className='w-48 h-48' />
+
+        <View className='text-center'>
+          <Text className='text-black font-bold text-[min(50px, 5vw)]'>
+            {slides[currentSlide].title}
+          </Text>
+          <Text className='text-gray-600 text-[min(30px, 5vw)] mt-2'>
+            {slides[currentSlide].subtitle}
+          </Text>
+        </View>
+
+        <View className='flex flex-row gap-2 mt-6'>
+          {slides.map((_, index) => (
+            <View
+              key={index}
+              className={`w-3 h-3 rounded-full ${
+                index === currentSlide ? "bg-blue" : "bg-gray-300"
+              }`}
+            />
+          ))}
+        </View>
+
+        <TouchableOpacity
+          onPress={
+            currentSlide === slides.length - 1 ? handleFinish : handleNext
+          }
+          className='bg-blue px-6 py-3 rounded-lg mt-6'
+        >
+          <Text className='text-white text-lg font-semibold'>
+            {currentSlide === slides.length - 1 ? "Finish" : "Next"}
+          </Text>
+        </TouchableOpacity>
       </View>
-
-      
-      <View className="flex flex-row gap-2 mt-6">
-        {slides.map((_, index) => (
-          <View
-            key={index}
-            className={`w-3 h-3 rounded-full ${
-              index === currentSlide ? "bg-secondary-200" : "bg-gray-300"
-            }`}
-          />
-        ))}
-      </View>
-
-    
-      <TouchableOpacity
-        onPress={currentSlide === slides.length - 1 ? handleFinish : handleNext}
-        className="bg-secondary-200 px-6 py-3 rounded-lg mt-6"
-      >
-        <Text className="text-white text-lg font-semibold">
-          {currentSlide === slides.length - 1 ? "Finish" : "Next"}
-        </Text>
-      </TouchableOpacity>
-    </View>
-  </SafeAreaView>
-
-
+    </SafeAreaView>
   );
 };
 
