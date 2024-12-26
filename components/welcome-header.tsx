@@ -1,6 +1,5 @@
 import { View, Text, Dimensions, Pressable } from "react-native";
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import SearchInput from "./ui/search-input";
 
@@ -16,8 +15,8 @@ const WelcomeHeader = ({
 }) => {
   const [notifications, setNotifications] = useState(2);
   return (
-    <SafeAreaView
-      className='bg-[#E6C229] rounded-b-[40px] px-4'
+    <View
+      className='bg-[#E6C229] rounded-b-[40px] px-4 pt-7'
       style={{ height: height * 0.22 }} // 30% of screen height
     >
       <View className='flex flex-row justify-between items-center'>
@@ -42,7 +41,7 @@ const WelcomeHeader = ({
         </Pressable>
       </View>
       <SearchInput initialQuery='' />
-    </SafeAreaView>
+    </View>
   );
 };
 

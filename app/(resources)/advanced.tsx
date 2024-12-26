@@ -1,8 +1,8 @@
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
-import { router } from "expo-router";
+import { router} from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { advancedSubjects, ordinarySubjects } from "@/constants/paper";
+import { advancedSubjects } from "@/constants/paper";
 
 const Paper = () => {
   const subjects = advancedSubjects;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, Stack, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ActivityIndicator, FlatList, Image } from "react-native";
 import serverApi from "@/api/server";
@@ -68,11 +68,22 @@ const Paper = () => {
 
   return (
     <SafeAreaView className='flex-1'>
-      <View className='flex-1 p-4'>
-        <Text className='text-center text-lg font-bold mb-4'>{subject}</Text>
+      <View className='flex-1 px-4'>
+        <Stack.Screen
+          options={{
+            title: "",
+            headerStyle: { backgroundColor: "#fff" },
+            headerTintColor: "#000",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        />
+        <Text className='text-center text-lg font-bold mb-2'>{subject}</Text>
 
         <FlatList
           data={data}
+          showsVerticalScrollIndicator={false}
           keyExtractor={item => item._id.toString()}
           renderItem={({ item }) => {
             const id = extractIdFromUrl(item.url);

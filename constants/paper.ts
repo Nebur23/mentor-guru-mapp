@@ -10,10 +10,10 @@ export const ordinarySubjects = [
 ];
 
 export const advancedSubjects = [
-  "Physics",
-  "Mathematics",
   "Chemistry",
   "Biology",
+  "Physics",
+  "Mathematics",
   "Furthermathematics",
   "ICT",
   "Computersc",
