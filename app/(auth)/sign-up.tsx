@@ -5,7 +5,7 @@ import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 import FormField from "@/components/ui/form-field";
 import CustomButtom from "@/components/ui/custom-btn";
 import { createUser } from "../../lib/appwrite";
-const logo = require("../../assets/images/splashScreen.jpeg");
+const logo = require("../../assets/images/logo.jpeg");
 import { useGlobalContext } from "@/context/GlobalProvider";
 
 const SignUp = () => {
