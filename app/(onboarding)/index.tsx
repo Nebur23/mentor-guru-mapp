@@ -79,9 +79,9 @@ const App = () => {
           onPress={
             currentSlide === slides.length - 1 ? handleFinish : handleNext
           }
-          className='bg-blue px-6 py-3 rounded-lg mt-6'
+          className='bg-blue  py-3 w-[200px] h-14  rounded-lg mt-6'
         >
-          <Text className='text-white text-lg font-semibold'>
+          <Text className='text-white text-lg text-center font-semibold'>
             {currentSlide === slides.length - 1 ? "Finish" : "Next"}
           </Text>
         </TouchableOpacity>

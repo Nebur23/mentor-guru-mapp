@@ -43,7 +43,7 @@ export default function RootLayout(): JSX.Element | null {
   return (
     <GlobalProvider>
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name='(onboarding)' />
+        <Stack.Screen name='(onboarding)/index' />
         <Stack.Screen name='(tabs)' />
         <Stack.Screen name='+not-found' />
         <Stack.Screen name='(resources)' />
