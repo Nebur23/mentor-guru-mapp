@@ -45,7 +45,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <View className='flex-1'>
+    <View className='flex-1 bg-white'>
       {/* Welcome Header */}
       <WelcomeHeader user={user} />
 

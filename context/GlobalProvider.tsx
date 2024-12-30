@@ -1,8 +1,14 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 import { getCurrentUser } from "@/lib/appwrite";
 
 interface GlobalContextType {
-  user: any; 
+  user: any;
   setUser: React.Dispatch<React.SetStateAction<any>>;
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,20 +25,18 @@ export const useGlobalContext = (): GlobalContextType => {
   return context;
 };
 
-
 interface GlobalProviderProps {
-  children: ReactNode; 
+  children: ReactNode;
 }
 
-
 export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<any>(null); 
+  const [user, setUser] = useState<any>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     getCurrentUser()
-      .then((currentUser) => {
+      .then(currentUser => {
         if (currentUser) {
           setUser(currentUser);
           setIsLoggedIn(true);
@@ -52,8 +56,6 @@ export const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   };
 
   return (
-    <GlobalContext.Provider value={values}>
-      {children}
-    </GlobalContext.Provider>
+    <GlobalContext.Provider value={values}>{children}</GlobalContext.Provider>
   );
 };
