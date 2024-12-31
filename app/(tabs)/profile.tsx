@@ -1,11 +1,15 @@
-import React from "react";
+import React,{useState} from "react";
+// import StarRating from "react-native-star-rating";
 import {
   View,
   Text,
+  ScrollView,
   FlatList,
+  TextInput,
   TouchableOpacity,
   Image,
   Alert,
+  Modal,
   Linking,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -16,7 +20,21 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const ProfileScreen = () => {
   const { user } = useGlobalContext();
-
+  const [isEditModalVisible, setEditModalVisible] = useState(false);
+  const [isFeedbackModalVisible, setFeedbackModalVisible] = useState(false);
+  const [isPaymentHistoryModalVisible, setPaymentHistoryModalVisible] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [isSubscriptionModalVisible, setSubscriptionModalVisible] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [isNotificationsModalVisible, setNotificationsModalVisible] = useState(false);
+  const subscriptions = [
+    {
+      planName: 'Premium',
+      renewalDate: '2024-12-28',
+      status: 'Active',
+    },
+   
+  ];
   type IconType =
     | "edit"
     | "notifications"
@@ -48,17 +66,24 @@ const ProfileScreen = () => {
   const openEmail = () => {
     Linking.openURL("mailto:jpteks728@gmail.com?subject=Support Request");
   };
+  const submitFeedback = () => {
+    Linking.openURL(
+      `mailto:jpteks728@gmail.com?subject=App Feedback&body=Rating:5%0AFeedback: ${feedback}`
+    );
+    setFeedbackModalVisible(false);
+  };
 
-  const iconsList: IconItem[] = [
-    { icon: "edit", label: "Edit Profile" },
-    { icon: "notifications", label: "Notifications" },
+  const iconsList = [
+    { icon: "edit", label: "Edit Profile", action: () => setEditModalVisible(true) },
+    { icon: "notifications", label: "Notifications",action: () => setNotificationsModalVisible(true)  },
     { icon: "subscriptions", label: "Subscriptions" },
     { icon: "support", label: "Contact Support", action: openEmail },
-    { icon: "feedback", label: "Feedback" },
-    { icon: "payment", label: "Payment History" },
-    { icon: "check-circle", label: "Completed Courses" },
+    { icon: "feedback", label: "Feedback", action: () => setFeedbackModalVisible(true) },
+    { icon: "payment", label: "Payment History", action: () => setPaymentHistoryModalVisible(true) },
+    { icon: "check-circle", label: "Completed Courses"},
   ];
-
+  const closeSubscriptionModal = () => setSubscriptionModalVisible(false);
+  const closeNotificationsModal = () => setNotificationsModalVisible(false);
   return (
     <SafeAreaView className='flex-1 bg-white'>
       <View className='flex-row items-center justify-between p-4  bg-tertiary'>
@@ -91,6 +116,141 @@ const ProfileScreen = () => {
           )}
         />
       </View>
+      <Modal visible={isEditModalVisible} transparent={true} animationType="slide">
+        <View className="flex-1 justify-center items-center bg-black bg-opacity-50">
+          <View className="w-11/12 bg-white p-6 rounded-lg">
+            <Text className="text-xl font-semibold mb-4">Edit Profile</Text>
+            <TextInput
+              placeholder="Username"
+             
+              className="border border-gray-300 rounded p-2 mb-4"
+            />
+            <TextInput
+              placeholder="password"
+              
+              className="border border-gray-300 rounded p-2 mb-4"
+            />
+             <TextInput
+              placeholder="email"
+             
+              className="border border-gray-300 rounded p-2 mb-4"
+            />
+            <TextInput
+              placeholder="phoneNumber"
+             
+              className="border border-gray-300 rounded p-2 mb-4"
+            />
+            <TouchableOpacity
+              onPress={() => setEditModalVisible(false)}
+              className="bg-blue-500 p-4 rounded"
+            >
+              <Text className="text-white text-center">Save Changes</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <Modal visible={isFeedbackModalVisible} transparent={true} animationType="slide">
+        <View className="flex-1 justify-center items-center bg-black bg-opacity-50">
+          <View className="w-11/12 bg-white p-6 rounded-lg">
+            <Text className="text-xl font-semibold mb-4">Feedback</Text>
+            <Text className="mb-2">Rate Us</Text>
+            {/* <StarRating
+              disabled={false}
+              maxStars={5}
+              rating={rating}
+              selectedStar={(rating) => setRating(rating)}
+              fullStarColor="gold"
+              emptyStarColor="lightgray"
+              starSize={32}
+            /> */}
+            <TextInput
+              placeholder="Write your feedback"
+              value={feedback}
+              onChangeText={setFeedback}
+              multiline
+              className="border border-gray-300 rounded p-2 mb-4 h-20"
+            />
+            <TouchableOpacity
+              onPress={submitFeedback}
+              className="bg-blue-500 p-4 rounded mb-4"
+            >
+              <Text className="text-white text-center">Submit Feedback</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setFeedbackModalVisible(false)}
+              className="bg-gray-300 p-4 rounded"
+            >
+              <Text className="text-center">Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <Modal visible={isSubscriptionModalVisible} transparent={true} animationType="slide">
+        <View className="flex-1 justify-center items-center bg-black bg-opacity-50">
+          <View className="w-11/12 bg-white p-6 rounded-lg">
+            <Text className="text-xl font-semibold mb-4">Current Subscription Plan</Text>
+            {subscriptions.length > 0 ? (
+              <>
+                <Text className="mb-2">Plan: {subscriptions[0].planName}</Text>
+                <Text className="mb-2">Renewal Date: {subscriptions[0].renewalDate}</Text>
+                <Text className="mb-4">Status: {subscriptions[0].status}</Text>
+                <TouchableOpacity
+                  onPress={() => Alert.alert("Renew subscription functionality will be implemented soon.")}
+                  className="bg-blue-500 p-4 rounded mb-4"
+                >
+                  <Text className="text-white text-center">Renew Subscription</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={closeSubscriptionModal}
+                  className="bg-gray-300 p-4 rounded"
+                >
+                  <Text className="text-center">Close</Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <Text>No subscription found.</Text>
+            )} 
+          </View>
+        </View>
+      </Modal>
+      <Modal visible={isPaymentHistoryModalVisible} transparent={true} animationType="slide">
+        <View className="flex-1 justify-center items-center bg-black bg-opacity-50">
+          <View className="w-11/12 bg-white p-6 rounded-lg">
+            <Text className="text-xl font-semibold mb-4">Payment History</Text>
+            <ScrollView>
+              
+              <Text className="mb-2">Free Plan: 0 XAF - Jan 2024</Text>
+              <Text className="mb-2">Basic Plan: 2000 XAF - Feb 2024</Text>
+              <Text className="mb-2">Basic Plan: 2000 XAF - Mar 2024</Text>
+              <Text className="mb-2">Basic Plan: 2000 XAF - Apr 2024</Text>
+              <Text className="mb-2">Premium Plan: 2500 XAF - May 2024</Text>
+              <Text className="mb-2">Premium Plan: 2000 XAF - June 2024</Text>
+            </ScrollView>
+            <TouchableOpacity
+              onPress={() => setPaymentHistoryModalVisible(false)}
+              className="bg-gray-300 p-4 rounded mt-4"
+            >
+              <Text className="text-center">Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <Modal visible={isNotificationsModalVisible} transparent={true} animationType="slide">
+        <View className="flex-1 justify-center items-center bg-black bg-opacity-50">
+          <View className="w-11/12 bg-white p-6 rounded-lg">
+            <Text className="text-xl font-semibold mb-4">Notifications</Text>
+            {/* Notifications content */}
+            <Text>No new notifications</Text>
+            <TouchableOpacity
+              onPress={closeNotificationsModal}
+              className="bg-gray-300 p-4 rounded"
+            >
+              <Text className="text-center">Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
     </SafeAreaView>
   );
 };
