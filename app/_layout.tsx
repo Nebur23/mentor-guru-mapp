@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {
   DarkTheme,
   DefaultTheme,
-  ThemeProvider,
+  //ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -11,6 +11,7 @@ import { StatusBar } from "expo-status-bar";
 import "../global.css";
 import { GlobalProvider } from "@/context/GlobalProvider";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { ThemeProvider } from "@/context/theme.context";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -42,14 +43,16 @@ export default function RootLayout(): JSX.Element | null {
 
   return (
     <GlobalProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name='(onboarding)' />
-        <Stack.Screen name='(tabs)' />
-        <Stack.Screen name='+not-found' />
-        <Stack.Screen name='(resources)' />
-        <Stack.Screen name='(auth)' />
-      </Stack>
-      <StatusBar style='auto' />
+      <ThemeProvider>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name='(routes)/index' />
+          <Stack.Screen name='(tabs)' />
+          <Stack.Screen name='+not-found' />
+          <Stack.Screen name='(resources)' />
+          <Stack.Screen name='(auth)' />
+        </Stack>
+        <StatusBar style='auto' />
+      </ThemeProvider>
     </GlobalProvider>
   );
 }

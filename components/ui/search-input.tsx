@@ -11,7 +11,7 @@ const SearchInput = ({ initialQuery }: { initialQuery: string }) => {
   return (
     <View className='flex flex-row items-center space-x-4 mt-2 w-full h-12 px-4 bg-white rounded-2xl'>
       <TextInput
-        className='text-base mt-0.5 text-white flex-1 font-pregular'
+        className='text-base mt-0.5 text-black flex-1 font-pregular'
         value={query}
         placeholder='Search a video topic'
         placeholderTextColor='#CDCDE0'

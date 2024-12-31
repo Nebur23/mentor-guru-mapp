@@ -1,8 +1,10 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
-import { Link, Redirect, router } from "expo-router";
+import { Redirect, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useGlobalContext } from "@/context/GlobalProvider";
+import * as SplashScreen from "expo-splash-screen";
 
 const slides = [
   {
@@ -19,13 +21,13 @@ const slides = [
   },
   {
     id: 3,
-    title: " Stay Organized",
+    title: "Stay Organized",
     subtitle: "Track your progress and manage assignments easily.",
     image: require("@/assets/images/progress.png"),
   },
   {
     id: 4,
-    title: " AI-Powered Learning",
+    title: "AI-Powered Learning",
     subtitle:
       "Experience personalized learning powered by AI recommendations and an interactive chatbot.",
     image: require("@/assets/images/ai.png"),
@@ -37,19 +39,33 @@ const slides = [
     image: require("@/assets/images/start.png"),
   },
 ];
-const App = () => {
+
+
+
+const OnboardingScreen = () => {
   const { isLoading, isLoggedIn } = useGlobalContext();
   if (!isLoading && isLoggedIn) return <Redirect href='/home' />;
+
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const handleNext = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
+    } else {
+      handleFinish();
     }
   };
-  const handleFinish = () => {
-    router.replace("/(auth)/sign-in");
+
+  const handleFinish = async () => {
+    try {
+      await AsyncStorage.setItem("hasSeenOnboarding", "true"); // Update AsyncStorage
+      if (!isLoading && isLoggedIn) return <Redirect href='/home' />;
+      router.replace("/(auth)/sign-in");
+    } catch (error) {
+      console.error("Error updating AsyncStorage:", error);
+    }
   };
+
   return (
     <SafeAreaView className='bg-white h-full'>
       <View className='flex flex-col items-center justify-center h-full gap-6'>
@@ -76,12 +92,10 @@ const App = () => {
         </View>
 
         <TouchableOpacity
-          onPress={
-            currentSlide === slides.length - 1 ? handleFinish : handleNext
-          }
-          className='bg-blue px-6 py-3 rounded-lg mt-6'
+          onPress={handleNext}
+          className='bg-blue py-3 w-[200px] h-14 rounded-lg mt-6'
         >
-          <Text className='text-white text-lg font-semibold'>
+          <Text className='text-white text-lg text-center font-semibold'>
             {currentSlide === slides.length - 1 ? "Finish" : "Next"}
           </Text>
         </TouchableOpacity>
@@ -90,4 +104,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default OnboardingScreen;

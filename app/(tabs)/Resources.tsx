@@ -9,8 +9,6 @@ const Resources = () => {
   return (
     <SafeAreaView className='justify-center items-center h-full'>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text>Resources</Text>
-
         <CardChoice title='Past papers' url='papers' />
         <CardChoice title='Solutions' url='solutions' />
       </ScrollView>
